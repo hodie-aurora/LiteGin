@@ -46,7 +46,7 @@ func (c *Context) SetHeader(key string, value string) {
 }
 
 func (c *Context) JSON(code int, obj interface{}) {
-	c.SetHeader("Context-Type", "application/json")
+	c.SetHeader("Content-Type", "application/json")
 	c.Status(code)
 	encoder := json.NewEncoder(c.Writer)
 	if err := encoder.Encode(obj); err != nil {
@@ -55,7 +55,7 @@ func (c *Context) JSON(code int, obj interface{}) {
 }
 
 func (c *Context) String(code int, format string, values ...interface{}) {
-	c.SetHeader("Content-Type", "application/plain")
+	c.SetHeader("Content-Type", "text/plain")
 	c.Status(code)
 	c.Writer.Write([]byte(fmt.Sprintf(format, values...)))
 }
